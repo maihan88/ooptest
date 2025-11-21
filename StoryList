@@ -1,0 +1,28 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany._nguyenNgocMaiHan;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author HAN NGUYEN
+ */
+public class StoryList extends ArrayList<Story> {
+    public void output(){
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("| %-4s | %-5s | %-20s | %-15s | %-5s | %-10s | %-5s |\n", 
+                          "Number", "ID", "Title", "Author", "Rate", "Status", "Language");
+        System.out.println("-----------------------------------------------------------------------------------");
+
+        for (Story story : this) {
+            story.output();
+        }
+        
+        System.out.println("-----------------------------------------------------------------------------------");
+    }
+    
+    
+}
