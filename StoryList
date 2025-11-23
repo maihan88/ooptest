@@ -4,6 +4,9 @@
  */
 package com.mycompany._nguyenNgocMaiHan;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
@@ -12,17 +15,50 @@ import java.util.ArrayList;
  */
 public class StoryList extends ArrayList<Story> {
     public void output(){
-        System.out.println("-----------------------------------------------------------------------------------");
-        System.out.printf("| %-4s | %-5s | %-20s | %-15s | %-5s | %-10s | %-5s |\n", 
-                          "Number", "ID", "Title", "Author", "Rate", "Status", "Language");
-        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.printf("| %-6s | %-7s | %-40s | %-25s | %-5s | %-10s | %-8s |\n", 
+                           "Number", "ID", "Title", "Author", "Rate", "Status", "Language");
+        System.out.println("------------------------------------------------------------------------------------------");
+        
+        int number=1;
 
         for (Story story : this) {
-            story.output();
+            story.output(number);
+            number++;
         }
         
         System.out.println("-----------------------------------------------------------------------------------");
     }
     
-    
+    public void addFromFile(String fileName) {
+        File f = new File(fileName);
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                if (line.trim().equals("")) continue;
+                
+                String[] arr = line.split("[,]+");
+                
+                int id = Integer.parseInt(arr[1].trim()); 
+                String name = arr[2].trim();
+                double rating = Double.parseDouble(arr[3].trim());
+                String author = arr[4].trim();
+                boolean isCompleted = arr[5].trim().equals("1");
+                char language = arr[6].trim().charAt(0);
+                
+                Story story = new Story(id, name, rating, author,isCompleted,language);
+                this.add(story);
+            }
+            
+            br.close();
+            fr.close();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
