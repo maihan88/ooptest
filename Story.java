@@ -9,7 +9,6 @@ package com.mycompany._nguyenNgocMaiHan;
  * @author HAN NGUYEN
  */
 public class Story {
-    private int number; //stt
     private int id;
     private String title;
     private double rating;
@@ -17,8 +16,31 @@ public class Story {
     private boolean isCompleted;
     private char language;
 
-    public Story(int number, int id, String title, double rating, String author, boolean isCompleted, char language) {
-        this.number = number;
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public boolean isIsCompleted() {
+        return isCompleted;
+    }
+
+    public char getLanguage() {
+        return language;
+    }
+
+    public Story(int id, String title, double rating, String author, boolean isCompleted, char language) {
         this.id = id;
         this.title = title;
         this.rating = rating;
@@ -27,13 +49,11 @@ public class Story {
         this.language = language;
     }
 
-    
-    @Override
-    public String toString(){
-        return String.format("| %-4d | %-5d | %-20s | %-15s | %-5.1f | %-10s | %-5s |", number, id, title, author, rating, isCompleted, language);
+    public String toString(int number){
+        return String.format("| %-6d | %-7d | %-40s | %-25s | %-5.1f | %-10s | %-8s |", number, id, title, author, rating, isCompleted, language);
     }
     
-    public void output(){
-        System.out.println(toString());
+    public void output(int number){
+        System.out.println(toString(number));
     }
 }
