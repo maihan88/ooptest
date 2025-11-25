@@ -21,14 +21,6 @@ import java.util.Scanner;
 public class StoryList extends ArrayList<Story> {
     Scanner sc = new Scanner(System.in);
     
-    public int findPos(int id) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getId() == id)
-            return i;
-        }
-        return -1;
-    }
-    
     public void output(){
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.printf("| %-6s | %-7s | %-40s | %-25s | %-5s | %-10s | %-8s |\n", 
@@ -116,7 +108,7 @@ public class StoryList extends ArrayList<Story> {
     public void updateStory() {
         System.out.print("Enter ID to update: ");
         int id = Integer.parseInt(sc.nextLine());
-        int pos = findPos(id);
+        int pos = searchStoryById(id);
         if (pos >= 0) {
             System.out.print("Enter new Title: ");
             this.get(pos).setTitle(sc.nextLine());
@@ -129,7 +121,7 @@ public class StoryList extends ArrayList<Story> {
     public void deleteStory() {
         System.out.print("Enter ID to delete: ");
         int id = Integer.parseInt(sc.nextLine());
-        int pos = findPos(id);
+        int pos = searchStoryById(id);
         if (pos >= 0) {
             this.remove(pos);
             System.out.println("Deleted successfully!");
@@ -138,6 +130,46 @@ public class StoryList extends ArrayList<Story> {
         }
     }
     
+    public int searchStoryByTitle(String title) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getTitle().equalsIgnoreCase(title)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public int searchStoryById (int id) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getId() == id)
+            return i;
+        }
+        return -1;
+    }
+    
+    public void searchStories() {
+        System.out.print("Enter ID or Title to search: ");
+        String input = sc.nextLine().trim();
+
+        int pos = -1;
+
+        if (input.matches("\\d+")) {
+            int id = Integer.parseInt(input);
+            pos = searchStoryById(id);
+        }
+
+        if (pos == -1) {
+            pos = searchStoryByTitle(input);
+        }
+
+        if (pos != -1) {
+            System.out.println(">> Found story:");
+            this.get(pos).output(1);
+        } else {
+            System.out.println(">> Not found!");
+        }
+    }
+       
     public void saveToFile(String fileName) {
         File f = new File(fileName);
         try {
