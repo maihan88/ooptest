@@ -7,13 +7,28 @@ package com.mycompany._nguyenNgocMaiHan;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  *
  * @author HAN NGUYEN
  */
 public class StoryList extends ArrayList<Story> {
+    Scanner sc = new Scanner(System.in);
+    
+    public int findPos(int id) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getId() == id)
+            return i;
+        }
+        return -1;
+    }
+    
     public void output(){
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.printf("| %-6s | %-7s | %-40s | %-25s | %-5s | %-10s | %-8s |\n", 
@@ -56,6 +71,87 @@ public class StoryList extends ArrayList<Story> {
             
             br.close();
             fr.close();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void sortByTitle() {
+        Collections.sort(this);
+        System.out.println(">> Sorted by Title!");
+    }
+    
+    public void sortByTitleAndRating() {
+        Collections.sort(this, new Comparator<Story>() {
+            @Override
+            public int compare(Story s1, Story s2) {
+                int titleCompare = s1.getTitle().compareTo(s2.getTitle());
+                if (titleCompare != 0) return titleCompare;
+                return Double.compare(s2.getRating(), s1.getRating());
+            }
+        });
+        System.out.println(">> Sorted by Title and Rating!");
+    }
+    
+    public void addStory() {
+        try {
+            System.out.print("Enter ID: "); 
+            int id = Integer.parseInt(sc.nextLine());
+            System.out.print("Enter Title: "); 
+            String title = sc.nextLine();
+            System.out.print("Enter Rating: "); 
+            double rating = Double.parseDouble(sc.nextLine());
+            System.out.print("Enter Author: "); 
+            String author = sc.nextLine();
+            System.out.print("Is Completed (true/false): "); 
+            boolean isCompleted = Boolean.parseBoolean(sc.nextLine());
+            System.out.print("Language (char): "); 
+            char lang = sc.nextLine().charAt(0);
+            this.add(new Story(id, title, rating, author, isCompleted, lang));
+            System.out.println(">> Added successfully!");
+        } catch (Exception e) { System.out.println("Invalid input!"); }
+    }
+    
+    public void updateStory() {
+        System.out.print("Enter ID to update: ");
+        int id = Integer.parseInt(sc.nextLine());
+        int pos = findPos(id);
+        if (pos >= 0) {
+            System.out.print("Enter new Title: ");
+            this.get(pos).setTitle(sc.nextLine());
+            System.out.println("Updated successfully!");
+        } else {
+            System.out.println("ID not found!");
+        }
+    }
+    
+    public void deleteStory() {
+        System.out.print("Enter ID to delete: ");
+        int id = Integer.parseInt(sc.nextLine());
+        int pos = findPos(id);
+        if (pos >= 0) {
+            this.remove(pos);
+            System.out.println("Deleted successfully!");
+        } else {
+            System.out.println("ID not found!");
+        }
+    }
+    
+    public void saveToFile(String fileName) {
+        File f = new File(fileName);
+        try {
+            FileWriter fw = new FileWriter(f);
+            PrintWriter pw = new PrintWriter(fw);
+            
+            for (Story s : this) {
+                pw.println("Story," + s.getId() + "," + s.getTitle() + "," + s.getRating() + "," + 
+                           s.getAuthor() + "," + (s.isIsCompleted() ? "1" : "0") + "," + s.getLanguage());
+            }
+            
+            pw.close();
+            fw.close();
+            System.out.println("Exported to file successfully!");
             
         } catch (Exception e) {
             System.out.println(e);
