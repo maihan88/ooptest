@@ -14,16 +14,16 @@ public class Main {
     
     public static void main(String[] args) {
         Menu menu = new Menu("Welcome to the world of Banh Su Vi Kem stories ^o^");
-        menu.addItem("Show stories");                 // 1. Hiển thị danh sách
-        menu.addItem("Sort by title");                // 2. Sắp xếp theo tên
-        menu.addItem("Sort by title and rating");     // 3. Sắp xếp theo tên và điểm
-        menu.addItem("Add new story");                // 4. Thêm truyện mới
-        menu.addItem("Update story");                 // 5. Cập nhật truyện
-        menu.addItem("Delete story");                 // 6. Xóa truyện
-        menu.addItem("Search stories");               // 7. Tìm kiếm (Thông minh)
-        menu.addItem("Import stories");               // 
+        menu.addItem("Show stories");
+        menu.addItem("Sort by title");
+        menu.addItem("Sort by title and rating");
+        menu.addItem("Add new story");
+        menu.addItem("Update story");
+        menu.addItem("Delete story");
+        menu.addItem("Search stories");
+        menu.addItem("Import stories");
         menu.addItem("Export stories");
-        menu.addItem("Exit");                         // 10. Thoát
+        menu.addItem("Exit");
         
         StoryList storyList = new StoryList();
         
@@ -67,8 +67,9 @@ public class Main {
                     storyList.saveToFile(filename);
                 }
                 default -> {
-                    Menu.sayBye();
-                    return;
+                    if (Menu.sayBye()){
+                        return;                        
+                    }
                 }
             }
             System.out.println("Press Enter to continue...");
