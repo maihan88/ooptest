@@ -24,8 +24,24 @@ public class Menu {
         list.add(element);
     }
 
-    public static void sayBye() {
-        System.out.println("We will miss you very much!!·´¯`(>.<)´¯`·. ");
+    public static boolean sayBye() {
+        System.out.println("You really want to go?(T_T)");
+        System.out.println("1 = Yes, 2 = I'll go back with you");
+
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            choice = 2;
+        }
+
+        if (choice == 1) {
+            System.out.println("We will miss you very much!!·´¯`(>.<)´¯`·. ");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getChoice() {
