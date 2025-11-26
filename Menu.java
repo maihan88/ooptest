@@ -26,7 +26,7 @@ public class Menu {
 
     public static boolean sayBye() {
         System.out.println("You really want to go?(T_T)");
-        System.out.println("1 = Yes, 2 = I'll go back with you");
+        System.out.println("1 = Yes; 2 = I'll go back with you");
 
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -58,11 +58,14 @@ public class Menu {
     }
 
     public void display() {
-        System.out.println(title);
+        System.out.println("====*:========~======*===.=.:*============`*:.========");
+        System.out.printf("| %-50s |\n", title);
+        System.out.println("======================================================");
         int count = 1;
         for (String number : list) {
-            System.out.println(count + ". " + number);
+            System.out.printf("| %-2d. %-46s |\n", count, number);
             count++;
         }
+        System.out.println("====*:========~======*===.=.:*============`*:.=======");
     }    
 }
