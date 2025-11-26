@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     
     public static void main(String[] args) {
-        Menu menu = new Menu("Welcome to the world of Banh Su Vi Kem stories ^o^");
+        Menu menu = new Menu("Welcome to the world of Banh Su Vi Kem stories");
         menu.addItem("Show stories");
         menu.addItem("Sort by title");
         menu.addItem("Sort by title and rating");
