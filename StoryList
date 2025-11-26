@@ -59,8 +59,7 @@ public class StoryList extends ArrayList<Story> {
                 
                 Story story = new Story(id, name, rating, author,isCompleted,language);
                 this.add(story);
-            }
-            
+            } 
             br.close();
             fr.close();
             
@@ -71,7 +70,6 @@ public class StoryList extends ArrayList<Story> {
     
     public void sortByTitle() {
         Collections.sort(this);
-        System.out.println(">> Sorted by Title!");
     }
     
     public void sortByTitleAndRating() {
@@ -79,11 +77,11 @@ public class StoryList extends ArrayList<Story> {
             @Override
             public int compare(Story s1, Story s2) {
                 int titleCompare = s1.getTitle().compareTo(s2.getTitle());
-                if (titleCompare != 0) return titleCompare;
+                if (titleCompare != 0) 
+                return titleCompare;
                 return Double.compare(s2.getRating(), s1.getRating());
             }
         });
-        System.out.println(">> Sorted by Title and Rating!");
     }
     
     public void addStory() {
@@ -101,8 +99,9 @@ public class StoryList extends ArrayList<Story> {
             System.out.print("Language (char): "); 
             char lang = sc.nextLine().charAt(0);
             this.add(new Story(id, title, rating, author, isCompleted, lang));
-            System.out.println(">> Added successfully!");
-        } catch (Exception e) { System.out.println("Invalid input!"); }
+        } catch (Exception e) { 
+            System.out.println("Invalid input!"); 
+        }
     }
     
     public void updateStory() {
@@ -153,11 +152,14 @@ public class StoryList extends ArrayList<Story> {
 
         int pos = -1;
 
-        if (input.matches("\\d+")) {
-            int id = Integer.parseInt(input);
+        try {
+            int id = Integer.parseInt(input); 
             pos = searchStoryById(id);
-        }
+            
+        } catch (NumberFormatException e) {
 
+        }
+        
         if (pos == -1) {
             pos = searchStoryByTitle(input);
         }
