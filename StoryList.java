@@ -146,8 +146,17 @@ public class StoryList extends ArrayList<Story> {
         return -1;
     }
     
+    public int searchStoryByAuthor(String author) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getAuthor().equalsIgnoreCase(author)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void searchStories() {
-        System.out.print("Enter ID or Title to search: ");
+        System.out.print("Enter ID, Title or Author to search: ");
         String input = sc.nextLine().trim();
 
         int pos = -1;
@@ -155,20 +164,23 @@ public class StoryList extends ArrayList<Story> {
         try {
             int id = Integer.parseInt(input); 
             pos = searchStoryById(id);
-            
         } catch (NumberFormatException e) {
 
         }
-        
+
         if (pos == -1) {
             pos = searchStoryByTitle(input);
         }
 
+        if (pos == -1) {
+            pos = searchStoryByAuthor(input);
+        }
+
         if (pos != -1) {
-            System.out.println(">> Found story:");
+            System.out.println("Found story:");
             this.get(pos).output(1);
         } else {
-            System.out.println(">> Not found!");
+            System.out.println("Not found!");
         }
     }
        
