@@ -106,14 +106,66 @@ public class StoryList extends ArrayList<Story> {
     
     public void updateStory() {
         System.out.print("Enter ID to update: ");
-        int id = Integer.parseInt(sc.nextLine());
-        int pos = searchStoryById(id);
-        if (pos >= 0) {
-            System.out.print("Enter new Title: ");
-            this.get(pos).setTitle(sc.nextLine());
-            System.out.println("Updated successfully!");
-        } else {
-            System.out.println("ID not found!");
+        try {
+            int id = Integer.parseInt(sc.nextLine());
+            int pos = searchStoryById(id);
+
+            if (pos == -1) {
+                System.out.println("ID not found!");
+                return;
+            }
+
+            Story story = this.get(pos);
+
+            System.out.println("\n UPDATE OPTIONS FOR: " + story.getTitle());
+            System.out.println("1. Title");
+            System.out.println("2. Rating");
+            System.out.println("3. Author");
+            System.out.println("4. Completed Status");
+            System.out.println("5. Language");
+            System.out.println("Example: Enter '1, 3' to update Title and Author.");
+            System.out.print("Enter your choices: ");
+
+            String input = sc.nextLine();
+            String[] choices = input.split("[,\\s]+"); 
+
+            for (String choiceStory : choices) {
+                try {
+                    int choice = Integer.parseInt(choiceStory);
+                    switch (choice) {
+                        case 1 -> {
+                            System.out.print("Enter new Title (Current: " + story.getTitle() + "): ");
+                            story.setTitle(sc.nextLine());
+                        }
+                        case 2 -> {
+                            System.out.print("Enter new Rating (Current: " + story.getRating() + "): ");
+                            story.setRating(Double.parseDouble(sc.nextLine()));
+                        }
+                        case 3 -> {
+                            System.out.print("Enter new Author (Current: " + story.getAuthor() + "): ");
+                            story.setAuthor(sc.nextLine());
+                        }
+                        case 4 -> {
+                            System.out.print("Is Completed (true/false) (Current: " + story.isIsCompleted() + "): ");
+                            story.setIsCompleted(Boolean.parseBoolean(sc.nextLine()));
+                        }
+                        case 5 -> {
+                            System.out.print("Enter new Language (Current: " + story.getLanguage() + "): ");
+                            String langStr = sc.nextLine();
+                            if (!langStr.isEmpty()) {
+                                story.setLanguage(langStr.charAt(0));
+                            }
+                        }
+                        default -> System.out.println("Warning: Option '" + choice + "' is invalid and was skipped.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: '" + choiceStory + "' is not a valid number.");
+                }
+            }
+            System.out.println("Update completed!");
+
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
     }
     
@@ -130,27 +182,34 @@ public class StoryList extends ArrayList<Story> {
     }
     
     public int searchStoryByTitle(String title) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getTitle().equalsIgnoreCase(title)) {
-                return i;
+        int index = 0;
+        for (Story story : this) { 
+            if (story.getTitle().equalsIgnoreCase(title)) {
+                return index;
             }
+            index++;
         }
         return -1;
     }
-    
-    public int searchStoryById (int id) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getId() == id)
-            return i;
+
+    public int searchStoryById(int id) {
+        int index = 0;
+        for (Story story : this) {
+            if (story.getId() == id) {
+                return index;
+            }
+            index++;
         }
         return -1;
     }
-    
+
     public int searchStoryByAuthor(String author) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getAuthor().equalsIgnoreCase(author)) {
-                return i;
+        int index = 0;
+        for (Story story : this) {
+            if (story.getAuthor().equalsIgnoreCase(author)) {
+                return index;
             }
+            index++;
         }
         return -1;
     }
