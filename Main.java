@@ -31,7 +31,7 @@ public class Main {
 
         while (true) {
             int choice = menu.getChoice();
-            Scanner sc = new Scanner(System.in);
+            Scanner sc=new Scanner(System.in);
             switch (choice) {
                 case 1 -> {
                     storyList.output();
@@ -73,6 +73,7 @@ public class Main {
                 }
             }
             System.out.println("Press Enter to continue...");
+            sc.nextLine();
         }        
     }
 }
