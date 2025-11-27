@@ -24,7 +24,7 @@ public class StoryList extends ArrayList<Story> {
     public void output(){
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         System.out.printf("| %-6s | %-7s | %-40s | %-25s | %-5s | %-10s | %-8s |\n", 
-                           "Number", "ID", "Title", "Author", "Rate", "Status", "Language");
+                           "Number", "ID", "Title", "Author", "Rate", "Complete", "Language");
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         
         int number=1;
@@ -50,12 +50,12 @@ public class StoryList extends ArrayList<Story> {
                 
                 String[] arr = line.split("[,]+");
                 
-                int id = Integer.parseInt(arr[1].trim()); 
-                String name = arr[2].trim();
-                double rating = Double.parseDouble(arr[3].trim());
-                String author = arr[4].trim();
-                boolean isCompleted = arr[5].trim().equals("1");
-                char language = arr[6].trim().charAt(0);
+                int id = Integer.parseInt(arr[0].trim()); 
+                String name = arr[1].trim();
+                double rating = Double.parseDouble(arr[2].trim());
+                String author = arr[3].trim();
+                boolean isCompleted = arr[4].trim().equals("1");
+                char language = arr[5].trim().charAt(0);
                 
                 Story story = new Story(id, name, rating, author,isCompleted,language);
                 this.add(story);
