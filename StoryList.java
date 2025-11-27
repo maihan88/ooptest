@@ -22,10 +22,9 @@ public class StoryList extends ArrayList<Story> {
     Scanner sc = new Scanner(System.in);
     
     public void output(){
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("===========================================================================================================================");
         System.out.printf("| %-6s | %-7s | %-40s | %-25s | %-5s | %-10s | %-8s |\n", 
                            "Number", "ID", "Title", "Author", "Rate", "Complete", "Language");
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         
         int number=1;
 
@@ -34,7 +33,7 @@ public class StoryList extends ArrayList<Story> {
             number++;
         }
         
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("===========================================================================================================================");
     }
     
     public void addFromFile(String fileName) {
@@ -42,27 +41,32 @@ public class StoryList extends ArrayList<Story> {
         try {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
-            
             String line;
-            
+
             while ((line = br.readLine()) != null) {
                 if (line.trim().equals("")) continue;
-                
-                String[] arr = line.split("[,]+");
-                
-                int id = Integer.parseInt(arr[0].trim()); 
-                String name = arr[1].trim();
-                double rating = Double.parseDouble(arr[2].trim());
-                String author = arr[3].trim();
-                boolean isCompleted = arr[4].trim().equals("1");
-                char language = arr[5].trim().charAt(0);
-                
-                Story story = new Story(id, name, rating, author,isCompleted,language);
-                this.add(story);
-            } 
+
+                try { 
+                    String[] arr = line.split("[,]+");
+
+                    int id = Integer.parseInt(arr[0].trim());
+                    String name = arr[1].trim();
+                    double rating = Double.parseDouble(arr[2].trim());
+                    String author = arr[3].trim();
+                    boolean isCompleted = arr[4].trim().equals("1");
+                    char language = arr[5].trim().charAt(0);
+
+                    Story story = new Story(id, name, rating, author, isCompleted, language);
+                    this.add(story);
+
+                } catch (Exception e) {
+                    System.out.println("Error with line: " + line + e.getMessage());
+                }
+            }
+
             br.close();
             fr.close();
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -238,7 +242,7 @@ public class StoryList extends ArrayList<Story> {
         if (pos != -1) {
             System.out.println("Found story:");
             this.get(pos).output(1);
-            System.out.println(".===*:========~======*===.=.:*============`*:.============*:========~======*===.=.:*============`*:.============*:========.");
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------");
 
         } else {
             System.out.println("Not found!");
