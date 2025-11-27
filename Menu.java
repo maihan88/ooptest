@@ -48,7 +48,7 @@ public class Menu {
         int rs = 0;
         try {
             display();
-            System.out.println("Please select an operation: ");
+            System.out.print("Please select an operation: ");
             Scanner sc = new Scanner(System.in);
             rs = Integer.parseInt(sc.nextLine());
         } catch (Exception e) {
