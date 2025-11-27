@@ -74,6 +74,7 @@ public class Story implements Comparable<Story>{
     }
 
     public String toString(int number){
+        System.out.println(".===*:========~======*===.=.:*============`*:.============*:========~======*===.=.:*============`*:.============*:========.");
         return String.format("| %-6d | %-7d | %-40s | %-25s | %-5.1f | %-10s | %-8s |", number, id, title, author, rating, isCompleted, language);
     }
     
