@@ -238,6 +238,8 @@ public class StoryList extends ArrayList<Story> {
         if (pos != -1) {
             System.out.println("Found story:");
             this.get(pos).output(1);
+            System.out.println(".===*:========~======*===.=.:*============`*:.============*:========~======*===.=.:*============`*:.============*:========.");
+
         } else {
             System.out.println("Not found!");
         }
