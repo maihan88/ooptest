@@ -42,8 +42,12 @@ public class StoryList extends ArrayList<Story> {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String line;
+            
+            int count=0;
 
             while ((line = br.readLine()) != null) {
+                count++;
+                
                 if (line.trim().equals("")) continue;
 
                 try { 
@@ -60,7 +64,7 @@ public class StoryList extends ArrayList<Story> {
                     this.add(story);
 
                 } catch (Exception e) {
-                    System.out.println("Error with line: " + line + e.getMessage());
+                    System.out.println("Invalid data at line " + count + ": " + line+ e.getMessage());
                 }
             }
 
@@ -68,7 +72,7 @@ public class StoryList extends ArrayList<Story> {
             fr.close();
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Can't access to file"+ e.getMessage());
         }
     }
     
